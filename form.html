@@ -39,11 +39,32 @@
             <script>
                 function register(event){
                     event.preventDefault();
-                    localStorage.setItem('Username',event.target.username.value)
-                  localStorage.setItem('Email',event.target.EMAIL.value);
-                  localStorage.setItem('Phone number',event.target.PHONE.value);   
-                  localStorage.setItem('Date',event.target.DATE.value);
-                  localStorage.setItem('Time',event.target.TIME.value);
+                //     localStorage.setItem('Username',event.target.username.value)
+                //   localStorage.setItem('Email',event.target.EMAIL.value);
+                //   localStorage.setItem('Phone number',event.target.PHONE.value);   
+                //   localStorage.setItem('Date',event.target.DATE.value);
+                //   localStorage.setItem('Time',event.target.TIME.value);
+
+          let userdata={
+            name:event.target.username.value,
+            email:event.target.EMAIL.value,
+            Number:event.target.PHONE.value,
+            Date:event.target.DATE.value,
+            Time:event.target.TIME.value
+           }
+///this code is stores user data in only one key so when we enter next user datailes the new detailes will be overides the old userdata ;
+          let obj_serialized=JSON.stringify(userdata);
+          localStorage.setItem("userData",obj_serialized);
+          let obj_deserialzed=JSON.parse(localStorage.getItem("userData"));
+          console.log(obj_deserialzed);
+
+        //         }
+        //         //this code is stores user  data in username for different key as its own username so it will store in local storage as many differnt users ;
+        //   let obj_serialized=JSON.stringify(userdata);
+        //   localStorage.setItem(event.target.username.value,obj_serialized);
+        //   let obj_deserialzed=JSON.parse(localStorage.getItem(event.target.username.value));
+        //   console.log(obj_deserialzed);
+
                 }
                 
      </script>
