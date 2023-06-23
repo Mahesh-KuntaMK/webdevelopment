@@ -36,10 +36,9 @@
                      
                       <input type="submit" style="width: 100%;background-color:lightgreen; color:white" value="Click on to submit">
                       </fieldset>
-                      <fieldset style="border: 6px;border-color:black">
-                        <legend>User Data</legend>
-                        <div id="datadisplay"></div>
-                      </fieldset>
+                      <ul id="listitems">
+                        
+                      </ul>
 
                  </form>
                
@@ -54,12 +53,12 @@
                 //   localStorage.setItem('Date',event.target.DATE.value);
                 //   localStorage.setItem('Time',event.target.TIME.value);
 
-          let userdata={
+          var userdata={
             name:event.target.username.value,
             email:event.target.EMAIL.value,
-            Number:event.target.PHONE.value,
-            Date:event.target.DATE.value,
-            Time:event.target.TIME.value
+            number:event.target.PHONE.value,
+            date:event.target.DATE.value,
+            time:event.target.TIME.value
            }
 // this code is stores user data in only one key so when we enter next user datailes the new detailes will be overides the old userdata ;
 //           let obj_serialized=JSON.stringify(userdata);
@@ -70,21 +69,54 @@
                
                 //this code is stores user  data in username for different key as its own username so it will store in local storage as many differnt users ;
           let obj_serialized=JSON.stringify(userdata);
-          localStorage.setItem(event.target.username.value,obj_serialized);
+          var name=event.target.username.value;
+          //console.log(name);
+          localStorage.setItem(name,obj_serialized);
+        //  location.reload();
           let obj_deserialzed=JSON.parse(localStorage.getItem(event.target.username.value));
-          console.log(obj_deserialzed);
+          //console.log(obj_deserialzed);
 
-
+          showUserData(userdata);
                 }
                // let key=localStorage.getItem(event.target.username.value);
 
-                for(let i=0;i<localStorage.length;i++){
-                    let key=localStorage.key(i);
-                   let value=localStorage.getItem(key);
-                   let div=document.getElementById('datadisplay');
-                   div.innerHTML+=`${key} :${value}<br />`;
-                }
+                // for(let i=0;i<localStorage.length;i++){
+                //     let key=localStorage.key(i);
+                //    let value=localStorage.getItem(key);
+                //    let div=document.getElementById('datadisplay');
+                //    div.innerHTML+=`${key} :${value}<br />`;
+                  
+               function showUserData(userdata){
+                           const parentele=document.getElementById('listitems');
+                          // var childele=document.createElement('li');
 
+                         parentele.innerHTML=parentele.innerHTML+`<li>${userdata.name}-${userdata.email}-${userdata.number}-${userdata.date}-${userdata.time}<input type="button" class="delete" value="delete" id="delbtn"></li>`
+
+                }
+             
+     var del=document.getElementById('delbtn');
+     var itemlist=document.getElementById('listitems');
+     
+     itemlist.addEventListener('click',deleteItem);
+
+   var key=document.getElementById('name');
+function deleteItem(e){
+    let delkey=key.value;
+    localStorage.removeItem(delkey);
+    if(e.target.classList.contains('delete')){
+       
+            var li=e.target.parentElement;
+              //  localStorage.removeItem('name')
+                itemlist.removeChild(li);
+                
+               
+
+    }
+}
+
+    
+
+             
                 
      </script>
     
