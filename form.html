@@ -53,6 +53,7 @@
                 //   localStorage.setItem('Date',event.target.DATE.value);
                 //   localStorage.setItem('Time',event.target.TIME.value);
 
+                var n=event.target.username.value;
           var userdata={
             name:event.target.username.value,
             email:event.target.EMAIL.value,
@@ -69,10 +70,10 @@
                
                 //this code is stores user  data in username for different key as its own username so it will store in local storage as many differnt users ;
           let obj_serialized=JSON.stringify(userdata);
-          var name=event.target.username.value;
+          var name=event.target.EMAIL.value;
           //console.log(name);
           localStorage.setItem(name,obj_serialized);
-        //  location.reload();
+        //location.reload();
           let obj_deserialzed=JSON.parse(localStorage.getItem(event.target.username.value));
           //console.log(obj_deserialzed);
 
@@ -87,32 +88,67 @@
                 //    div.innerHTML+=`${key} :${value}<br />`;
                   
                function showUserData(userdata){
-                           const parentele=document.getElementById('listitems');
-                          // var childele=document.createElement('li');
+                           const parentEle=document.getElementById('listitems');
+                           var childEle=document.createElement('li');
+                           childEle.textContent=userdata.name+"-"+userdata.email+"-"+userdata.number+"-"+userdata.date+"-"+userdata.time;
+                       
+                         let delbtn=document.createElement('input');
+                         delbtn.value="delete";
+                         delbtn.type="button";
 
-                         parentele.innerHTML=parentele.innerHTML+`<li>${userdata.name}-${userdata.email}-${userdata.number}-${userdata.date}-${userdata.time}<input type="button" class="delete" value="delete" id="delbtn"></li>`
+                         delbtn.onclick=()=>{
+                            localStorage.removeItem(userdata.email);
+                            parentEle.removeChild(childEle);
+
+
+                         }
+                        
+                         childEle.appendChild(delbtn);
+                        
+                         let editbtn=document.createElement('input');
+                         editbtn.value="edit";
+                         editbtn.type="button";
+                         editbtn.onclick=()=>{
+                         
+                          let n=document.getElementById('name')
+
+                          n.value=userdata.name;
+                          let e=document.getElementById('Email')
+                          e.value=userdata.email;
+                          let ph=document.getElementById('phone')
+                          ph.value=userdata.number;
+                          let d=document.getElementById('date')
+                           d.value=userdata.date;
+                          let t=document.getElementById('time')
+                             t.value=userdata.time;
+                        
+                            localStorage.removeItem(userdata.email);
+                            parentEle.removeChild(childEle);
+
+                         }
+                         childEle.appendChild(editbtn)
+                         parentEle.appendChild(childEle);
+
 
                 }
-             
-     var del=document.getElementById('delbtn');
-     var itemlist=document.getElementById('listitems');
+        // I tried my own code it excuted well     
+//      var del=document.getElementById('delbtn');
+//      var itemlist=document.getElementById('listitems');
      
-     itemlist.addEventListener('click',deleteItem);
+//      itemlist.addEventListener('click',deleteItem);
 
-   var key=document.getElementById('name');
-function deleteItem(e){
-    let delkey=key.value;
-    localStorage.removeItem(delkey);
-    if(e.target.classList.contains('delete')){
+//    var key=document.getElementById('name');
+// function deleteItem(e){
+//     let delkey=key.value;
+//     localStorage.removeItem(delkey);
+//     if(e.target.classList.contains('delete')){
        
-            var li=e.target.parentElement;
-              //  localStorage.removeItem('name')
-                itemlist.removeChild(li);
+//             var li=e.target.parentElement;
+//               //  localStorage.removeItem('name')
+//                 itemlist.removeChild(li);
                 
                
 
-    }
-}
 
     
 
